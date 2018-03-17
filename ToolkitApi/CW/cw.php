@@ -295,7 +295,7 @@ function i5_connect($host='localhost', $user='', $password='', $options=array())
     $dbname = getConfigValue('hosts', $host);
     
     if (!$dbname) {
-        i5ErrorActivity(I5_CONN_TIMEOUT, I5_CAT_TCPIP, "Undefined host ('$host')", "Try 'localhost' instead, or specify lookup in " . CONFIG_FILE . " ($host=DBNAME).");
+        i5ErrorActivity(I5_CONN_TIMEOUT, I5_CAT_TCPIP, "Undefined host ('$host')", "Try 'localhost' instead, or specify lookup in " . TK_CONFIG_FILE . " ($host=DBNAME).");
         return false;
     }
     

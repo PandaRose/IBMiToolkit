@@ -2,7 +2,9 @@
 namespace ToolkitApi;
 include_once 'ToolkitServiceSet.php';
 
-define('CONFIG_FILE', 'toolkit.ini');
+if(!defined('TK_CONFIG_FILE')) {
+  define('TK_CONFIG_FILE', 'toolkit.ini');
+}
 
 /**
  * Class Toolkit
@@ -2362,7 +2364,7 @@ class Toolkit
         // if we haven't read config file yet, do so.
         if (!isset(self::$_config)) {
             // read/stat INI once and only once per request
-            self::$_config = parse_ini_file(CONFIG_FILE, true);
+            self::$_config = parse_ini_file(TK_CONFIG_FILE, true);
         }
 
         if (isset(self::$_config[$heading][$key])) {
