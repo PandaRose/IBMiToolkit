@@ -1,6 +1,15 @@
 PHP Toolkit for IBM i 
 =====================
 
+Panda Rose Fork
+===============
+This is a fork we created so we can continue development on this for Panda Rose's clients needs. Specifically to see about getting some features developed.
+
+The original version is as follows
+
+ORIGINAL README
+---------------
+
 [![Build Status](https://travis-ci.org/zendtech/IbmiToolkit.svg?branch=master)](https://travis-ci.org/zendtech/IbmiToolkit)
 
 For production systems please do not use the master branch.  Instead use the latest 
