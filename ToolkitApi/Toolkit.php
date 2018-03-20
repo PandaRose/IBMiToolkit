@@ -2043,7 +2043,30 @@ class Toolkit
      */
     public function executeQuery($stmt)
     {
-        $Txt = $this->db->executeQuery($this->getConnection(), $stmt);
+        if($this->db) {
+            $Txt = $this->db->executeQuery($this->getConnection(), $stmt);
+        } else {
+            $this->XMLWrapper = new XMLWrapper(array('encoding' => $this->getOption('encoding')), $this);
+
+            $this->cpfErr = '0';
+            $this->error = '';
+            $this->errorText = '';
+
+            $inputXml = $this->XMLWrapper->buildQueryXmlIn($stmt);
+            $outputXml = $this->sendXml($inputXml, false);
+            $outputObj = simplexml_load_string($outputXml);
+            $Txt = [];
+            foreach($outputObj->sql->fetch->children() as $row) {
+                $rowArray = [];
+                foreach($row->children() as $col) {
+                    $key = $col->attributes();
+                    $value = $col;
+                    $rowArray[(string)$key]=(string)$value;
+                }
+                if(count($rowArray) != 0)
+                    array_push($Txt,$rowArray);
+            }
+        }
 
         if (!is_array($Txt)) {
             $this->cpfErr = $this->db->getErrorCode();

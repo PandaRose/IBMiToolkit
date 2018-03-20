@@ -202,10 +202,10 @@ class XMLWrapper
     {
         // start xml with encoding tag
         $finalXml = $this->xmlStart();
-        
+
         // open script tag
         $finalXml .= "\n<script>";
-        
+
         // include override of submit command if specified
         if ($this->getOption('sbmjobCommand')) {
             $sbmJobCommand = $this->getOption('sbmjobCommand');
@@ -217,7 +217,7 @@ class XMLWrapper
         
         // close script tag
         $finalXml .= "\n</script>";
-        
+
         return $finalXml; 
     }
     
@@ -874,6 +874,21 @@ class XMLWrapper
     public function getCommandXmlInPase($cmd)
     {
         return $this->buildCommandXmlIn($cmd, 'pase');
+    }
+
+    /**
+     * Just the start of the Query functionality.
+     * 
+     * @param $query The SQL query string to be sent
+     */
+    public function buildQueryXmlIn($query) {
+        $xmlIn = '<sql>';
+        $xmlIn .= '<query error=\'fast\'>' . $query . "</query>\n";
+        $xmlIn .= "<fetch block='all' desc='on' />\n";
+        $xmlIn .= "<free></free>";
+        $xmlIn .= '</sql>';
+
+        return $this->addOuterTags($xmlIn);
     }
     
     /**
