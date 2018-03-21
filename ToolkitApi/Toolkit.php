@@ -2056,15 +2056,20 @@ class Toolkit
             $outputXml = $this->sendXml($inputXml, false);
             $outputObj = simplexml_load_string($outputXml);
             $Txt = [];
-            foreach($outputObj->sql->fetch->children() as $row) {
-                $rowArray = [];
-                foreach($row->children() as $col) {
-                    $key = $col->attributes();
-                    $value = $col;
-                    $rowArray[(string)$key]=(string)$value;
+            if($outputObj->sql->fetch) {
+                foreach ($outputObj->sql->fetch->children() as $row) {
+                    $rowArray = [];
+                    foreach ($row->children() as $col) {
+                        $key = $col->attributes();
+                        $value = $col;
+                        $rowArray[(string)$key] = (string)$value;
+                    }
+                    if (count($rowArray) != 0)
+                        array_push($Txt, $rowArray);
                 }
-                if(count($rowArray) != 0)
-                    array_push($Txt,$rowArray);
+            } else {
+                print "<pre>";
+                print htmlentities($outputXml); die();
             }
         }
 
