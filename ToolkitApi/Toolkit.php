@@ -2068,8 +2068,11 @@ class Toolkit
                         array_push($Txt, $rowArray);
                 }
             } else {
-                print "<pre>";
-                print htmlentities($outputXml); die();
+                if($outputObj->error[1]->errnoxml == '1500001') {
+                   return $Txt;
+                } else {
+                    print htmlentities($outputXml); die();
+                }
             }
         }
 
